@@ -7,6 +7,9 @@ FatReader root;   // This holds the information for the volumes root directory
 FatReader file;   // This object represent the WAV file 
 WaveHC wave;      // This is the only wave (audio) object, since we will only play one at a time
 
+// time to play each tone in milliseconds
+#define PLAY_TIME 200
+
 /*
  * Define macro to put error messages in flash memory
  */
@@ -17,6 +20,8 @@ int state = 0;
 
 void setup() {
   Serial.begin(115200);
+
+  pinMode(tongsPin, INPUT_PULLUP);
 
   if (!card.init()) error("card.init");
 
