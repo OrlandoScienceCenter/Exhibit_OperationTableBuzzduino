@@ -33,6 +33,10 @@ void setup() {
   if (!root.openRoot(vol)) error("openRoot");
 
   PgmPrintln("Init Done");
+  
+  playStartup();
+  
+  delay(3000); // Allow everything to come up to temp (mostly the other arduino to pullup)
 }
 
 void loop() {
@@ -81,6 +85,31 @@ void playBuzzer(void) {
   
   // copy flash string to RAM
   strcpy_P(name, PSTR("buzzer2.wav"));
+  
+  uint32_t t = millis();
+    
+  // open file by name
+  if (!file.open(root, name)) error("open by name"); 
+    
+  // create wave and start play
+  if (!wave.create(file))error("wave.create");
+  wave.play();
+    
+  // print time
+  Serial.println(millis() - t);
+    
+  // stop after PLAY_TIME ms
+  Serial.println("Done");
+    
+  // check for play errors
+  sdErrorCheck();
+}
+
+void playStartup(void) {
+  char name[10];
+  
+  // copy flash string to RAM
+  strcpy_P(name, PSTR("frogger.wav"));
   
   uint32_t t = millis();
     
