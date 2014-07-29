@@ -14,7 +14,7 @@ WaveHC wave;      // This is the only wave (audio) object, since we will only pl
  * Define macro to put error messages in flash memory
  */
 #define error(msg) error_P(PSTR(msg))
-#define tongsPin 7
+#define tongsPin A5
 
 int state = 0;
 
